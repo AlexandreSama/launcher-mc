@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/toast.css" />
+    <!--===============================================================================================-->
+    <script src="../js/toast.js"></script>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../../vendor/animate/animate.css">
+    <!--===============================================================================================-->	
+      <link rel="stylesheet" type="text/css" href="../../vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../../vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../../vendor/select2/select2.min.css">
+    <!--===============================================================================================-->	
+      <link rel="stylesheet" type="text/css" href="../../vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../css/utils.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <title>AliusLauncher - Connexion</title>
+</head>
+
+<body>
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('../../img/bg2.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41">
+					Saisis ton email et ton mot de passe
+				</span>
+				<form class="login100-form validate-form p-b-33 p-t-5">
+
+					<div class="wrap-input100 validate-input" data-validate = "Email">
+						<input class="input100" type="text" name="username" placeholder="Email" id="username">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Mot de passe">
+						<input class="input100" type="password" name="pass" placeholder="Mot de passe" id="password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-32">
+						<button class="login100-form-btn" id="playbtn">
+							Connexion
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+  <script>
+      // Importation des modules
+      const ipc = require("electron").ipcRenderer;
+      const custombar = require("custom-electron-titlebar");
+
+      // Variables globales
+      let playbtn = document.getElementById("playbtn");
+
+      // Déclaration de la barre de base
+      let bar = new custombar.Titlebar({
+        icon: "asset/img/slashdev.png",
+        menu: null,
+        backgroundColor: custombar.Color.fromHex("#ffcccc"),
+        titleHorizontalAlignment: "center"
+      });
+
+      // Lors d'un click sur le bouton play, non désactivé
+      playbtn.addEventListener("click", () => {
+        playbtn.disabled = true;
+
+        let user = document.getElementById("username").value;
+        let pass = document.getElementById("password").value;
+
+        if (user && pass) {
+          ipc.send("login", { user, pass });
+        } else {
+          playbtn.disabled = false;
+          iziToast.error({
+            id: "error",
+            title: "Erreur",
+            message: "Veuillez entrer des identifiants",
+            position: "bottomRight",
+            transitionIn: "fadeInDown",
+          });
+        }
+      });
+
+      // Récéption de l'event erreur
+      ipc.on("err", (event, errorMessage) => {
+        localStorage.clear();
+        iziToast.error({
+          id: "error",
+          title: "Erreur",
+          message: errorMessage,
+          position: "bottomRight",
+          transitionIn: "fadeInDown",
+        });
+        playbtn.disabled = false;
+      });
+  </script>
+</body>
+<script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../vendor/bootstrap/js/popper.js"></script>
+<!--===============================================================================================-->
+<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../vendor/daterangepicker/moment.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="../../vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="../js/login.js"></script>
+</html>
