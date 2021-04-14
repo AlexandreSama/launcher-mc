@@ -13,7 +13,7 @@ function createWindow() {
     icon: path.join(__dirname, "/asset/img/slashdev.png"),
     width: 1280,
     height: 720,
-    frame: false,
+    frame: true,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
@@ -21,7 +21,7 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadURL(path.join(__dirname, "asset/pages/html/login.html"));
+  mainWindow.loadURL(path.join(__dirname, "asset/pages/html/app.html"));
 }
 
 // Quand l'application est chargée, afficher la fenêtre

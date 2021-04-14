@@ -9,85 +9,73 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../../vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
     <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../../vendor/animate/animate.css">
-    <!--===============================================================================================-->	
-      <link rel="stylesheet" type="text/css" href="../../vendor/css-hamburgers/hamburgers.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../../vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../../vendor/select2/select2.min.css">
-    <!--===============================================================================================-->	
-      <link rel="stylesheet" type="text/css" href="../../vendor/daterangepicker/daterangepicker.css">
-    <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../css/utils.css">
-    <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../css/login.css">
     <title>AliusLauncher - Connexion</title>
 </head>
 
 <body>
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('../../img/bg2.jpg');">
-			<div class="wrap-login100 p-t-30 p-b-50">
-				<span class="login100-form-title p-b-41">
-					Saisis ton email et ton mot de passe
-				</span>
-				<form class="login100-form validate-form p-b-33 p-t-5">
-
-					<div class="wrap-input100 validate-input" data-validate = "Email">
-						<input class="input100" type="text" name="username" placeholder="Email" id="username">
-						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Mot de passe">
-						<input class="input100" type="password" name="pass" placeholder="Mot de passe" id="password">
-						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
-					</div>
-
-					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn" id="playbtn">
-							Connexion
-						</button>
-					</div>
-
-				</form>
-			</div>
-		</div>
-	</div>
-	
-
-	<div id="dropDownSelect1"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Connexion</h5>
+            <form class="form-signin">
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Adresse-Mail" required autofocus>
+                <label for="inputEmail">Adresse-mail</label>
+              </div>
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+                <label for="inputPassword">Mot de passe</label>
+              </div>
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox">
+                <label class="custom-control-label" for="customCheck1">Se souvenir de l'email ?</label>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id="loginbtn">Connexion</button>
+              <hr class="my-4">
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Se connecter avec Microsoft</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
       // Importation des modules
       const ipc = require("electron").ipcRenderer;
       const custombar = require("custom-electron-titlebar");
 
       // Variables globales
-      let playbtn = document.getElementById("playbtn");
+      let loginbtn = document.getElementById("loginbtn");
 
       // Déclaration de la barre de base
-      let bar = new custombar.Titlebar({
-        icon: "asset/img/slashdev.png",
-        menu: null,
-        backgroundColor: custombar.Color.fromHex("#ffcccc"),
-        titleHorizontalAlignment: "center"
-      });
+      // let bar = new custombar.Titlebar({
+      //   icon: "asset/img/slashdev.png",
+      //   menu: null,
+      //   backgroundColor: custombar.Color.fromHex("#ffcccc"),
+      //   titleHorizontalAlignment: "center"
+      // });
 
       // Lors d'un click sur le bouton play, non désactivé
-      playbtn.addEventListener("click", () => {
-        playbtn.disabled = true;
+      loginbtn.addEventListener("click", () => {
+        loginbtn.disabled = true;
 
-        let user = document.getElementById("username").value;
-        let pass = document.getElementById("password").value;
+        let user = document.getElementById("inputEmail").value;
+        let pass = document.getElementById("inputPassword").value;
 
         if (user && pass) {
           ipc.send("login", { user, pass });
         } else {
-          playbtn.disabled = false;
+          loginbtn.disabled = false;
           iziToast.error({
             id: "error",
             title: "Erreur",
@@ -108,25 +96,8 @@
           position: "bottomRight",
           transitionIn: "fadeInDown",
         });
-        playbtn.disabled = false;
+        loginbtn.disabled = false;
       });
   </script>
 </body>
-<script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../vendor/bootstrap/js/popper.js"></script>
-<!--===============================================================================================-->
-<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../vendor/daterangepicker/moment.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-<script src="../../vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-<script src="../js/login.js"></script>
 </html>
